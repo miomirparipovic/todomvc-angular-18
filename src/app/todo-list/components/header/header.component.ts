@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TodosService } from '../../services/todos.service';
 
 @Component({
   selector: 'app-header',
@@ -10,18 +11,21 @@ import { Component } from '@angular/core';
 export class HeaderComponent {
   text: string = '';
 
-  addText(event: KeyboardEvent): void {
+  constructor(private _todoService: TodosService) {}
+
+  addTodo(event: KeyboardEvent): void {
     const target = event.target as HTMLInputElement;
 
     if (event.key == 'Enter' && this.text) {
-      console.log('enter pressed', this.text);
+      // console.log('enter pressed', this.text);
+      this._todoService.addTodo(this.text);
       this.text = '';
       return;
     }
 
     if (target) {
       this.text = target.value;
-      console.log('text', this.text);
+      // console.log('text', this.text);
       return;
     }
   }
