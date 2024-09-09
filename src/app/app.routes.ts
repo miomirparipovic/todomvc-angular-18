@@ -4,8 +4,6 @@ export const routes: Routes = [
   {
     path: '',
     loadComponent: () =>
-      import('./todo-list/todo-list.component').then(
-        (com) => com.TodoListComponent,
-      ),
+      import('./todos/todos.component').then((com) => com.TodosComponent),
   },
 ];

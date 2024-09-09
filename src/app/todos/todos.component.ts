@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { HeaderComponent } from './components/header/header.component';
 
 @Component({
-  selector: 'app-todo-list',
+  selector: 'app-todos',
   standalone: true,
   imports: [HeaderComponent],
-  templateUrl: './todo-list.component.html',
-  styleUrl: './todo-list.component.css',
+  templateUrl: './todos.component.html',
+  styleUrl: './todos.component.css',
 })
-export class TodoListComponent {}
+export class TodosComponent {}
