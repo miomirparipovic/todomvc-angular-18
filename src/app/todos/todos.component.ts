@@ -1,14 +1,46 @@
-import { Component } from '@angular/core';
+// angular
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { combineLatest, map, Observable } from 'rxjs';
 
 // components
 import { HeaderComponent } from './components/header/header.component';
 import { TodoMainComponent } from './components/todo-main/todo-main.component';
 
+// models
+import { TodoInterface } from './types/todo.interface';
+import { TodosService } from './services/todos.service';
+import { FilterEnum } from './types/filter.enum';
+
 @Component({
   selector: 'app-todos',
   standalone: true,
-  imports: [HeaderComponent, TodoMainComponent],
+  imports: [CommonModule, HeaderComponent, TodoMainComponent],
   templateUrl: './todos.component.html',
   styleUrl: './todos.component.css',
 })
-export class TodosComponent {}
+export class TodosComponent implements OnInit {
+  visibleTodos$!: Observable<TodoInterface[]>;
+
+  constructor(private _todosService: TodosService) {}
+
+  ngOnInit(): void {
+    this.visibleTodos$ = combineLatest([
+      this._todosService.todos$,
+      this._todosService.filter$,
+    ]).pipe(
+      map(([todos, filter]: [TodoInterface[], FilterEnum]) => {
+        console.log('combine', todos, filter);
+        if (filter == FilterEnum.active) {
+          return todos.filter((todo) => !todo.isCompleted);
+        }
+
+        if (filter == FilterEnum.completed) {
+          return todos.filter((todo) => todo.isCompleted);
+        }
+
+        return todos;
+      }),
+    );
+  }
+}
