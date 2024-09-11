@@ -5,5 +5,8 @@
     [isAllSelected]="areAllSelected$ | async"
     (toggleTodos)="handleToggleTodos($event)"
   />
-  <app-footer [areThereAnyTodos]="areAnyTodos$ | async"></app-footer>
+  <app-footer
+    [areThereAnyTodos]="areAnyTodos$ | async"
+    [numberOfVisibleTodos]="(visibleTodos$ | async)?.length"
+  ></app-footer>
 </section>

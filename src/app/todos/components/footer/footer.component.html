@@ -1,3 +1,8 @@
 @if (areThereAnyTodos) {
-  <p>footer works!</p>
+  <footer class="footer">
+    <span class="todo-count">
+      <strong>{{ numberOfVisibleTodos }}</strong>
+    </span>
+    {{ itemMessage(numberOfVisibleTodos) }}
+  </footer>
 }
