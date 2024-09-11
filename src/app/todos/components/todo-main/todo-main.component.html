@@ -1,1 +1,17 @@
-<p>todo-main works!</p>
+@if (visibleTodos?.length) {
+  <section class="main">
+    <input
+      type="checkbox"
+      class="toggle-all"
+      id="toggle-all"
+      [checked]="isAllSelected"
+      (change)="onToggleTodos($event)"
+    />
+    <label for="toggle-all">Mark all as completed</label>
+    <ul class="todo-list">
+      @for (todo of visibleTodos; track todo.id) {
+        <app-todo-item [todo]="todo" />
+      }
+    </ul>
+  </section>
+}

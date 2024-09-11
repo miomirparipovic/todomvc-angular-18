@@ -1,4 +1,9 @@
 <section class="todoapp">
   <app-header />
-  <app-todo-main />
+  <app-todo-main
+    [visibleTodos]="visibleTodos$ | async"
+    [isAllSelected]="areAllSelected$ | async"
+    (toggleTodos)="handleToggleTodos($event)"
+  />
+  <app-footer [areThereAnyTodos]="areAnyTodos$ | async"></app-footer>
 </section>
