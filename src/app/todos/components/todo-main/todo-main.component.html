@@ -5,6 +5,7 @@
       class="toggle-all"
       id="toggle-all"
       [checked]="isAllSelected"
+      (change)="onToggleTodos($event)"
     />
     <label for="toggle-all">Mark all as completed</label>
     <ul class="todo-list">

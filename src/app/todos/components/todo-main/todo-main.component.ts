@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TodoInterface } from '../../types/todo.interface';
 import { CommonModule } from '@angular/common';
 import { TodoItemComponent } from '../todo-item/todo-item.component';
@@ -13,4 +13,10 @@ import { TodoItemComponent } from '../todo-item/todo-item.component';
 export class TodoMainComponent {
   @Input() visibleTodos!: TodoInterface[] | null;
   @Input() isAllSelected!: boolean | null;
+  @Output() toggleTodos = new EventEmitter<boolean>();
+
+  onToggleTodos(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    this.toggleTodos.emit(target.checked);
+  }
 }

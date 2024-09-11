@@ -56,4 +56,9 @@ export class TodosComponent implements OnInit {
       }),
     );
   }
+
+  handleToggleTodos(isCompletedFlag: boolean): void {
+    // console.log('isCompletedFlag', isCompletedFlag);
+    this._todosService.toggleTodos(isCompletedFlag);
+  }
 }

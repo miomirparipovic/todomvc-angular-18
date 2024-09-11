@@ -3,7 +3,6 @@
   <app-todo-main
     [visibleTodos]="visibleTodos$ | async"
     [isAllSelected]="isAllSelected$ | async"
+    (toggleTodos)="handleToggleTodos($event)"
   />
 </section>
-
-== {{ isAllSelected$ | async }} ==
