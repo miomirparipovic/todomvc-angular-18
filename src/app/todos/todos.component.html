@@ -2,7 +2,8 @@
   <app-header />
   <app-todo-main
     [visibleTodos]="visibleTodos$ | async"
-    [isAllSelected]="isAllSelected$ | async"
+    [isAllSelected]="areAllSelected$ | async"
     (toggleTodos)="handleToggleTodos($event)"
   />
+  <app-footer [areThereAnyTodos]="areAnyTodos$ | async"></app-footer>
 </section>

@@ -11,23 +11,26 @@ import { TodoMainComponent } from './components/todo-main/todo-main.component';
 import { TodoInterface } from './types/todo.interface';
 import { TodosService } from './services/todos.service';
 import { FilterEnum } from './types/filter.enum';
+import { FooterComponent } from './components/footer/footer.component';
 
 @Component({
   selector: 'app-todos',
   standalone: true,
-  imports: [CommonModule, HeaderComponent, TodoMainComponent],
+  imports: [CommonModule, HeaderComponent, TodoMainComponent, FooterComponent],
   templateUrl: './todos.component.html',
   styleUrl: './todos.component.css',
 })
 export class TodosComponent implements OnInit {
   visibleTodos$!: Observable<TodoInterface[]>;
-  isAllSelected$!: Observable<boolean>;
+  areAllSelected$!: Observable<boolean>;
+  areAnyTodos$!: Observable<boolean>;
 
   constructor(private _todosService: TodosService) {}
 
   ngOnInit(): void {
     this.visibleTodos();
     this.checkIfAllTodosSelected();
+    this.checkIfAnyTodoExist();
   }
 
   visibleTodos(): void {
@@ -50,10 +53,16 @@ export class TodosComponent implements OnInit {
   }
 
   checkIfAllTodosSelected(): void {
-    this.isAllSelected$ = this._todosService.todos$.pipe(
+    this.areAllSelected$ = this._todosService.todos$.pipe(
       map((todos: TodoInterface[]) => {
         return todos.length > 0 && todos.every((todo) => todo.isCompleted);
       }),
+    );
+  }
+
+  checkIfAnyTodoExist(): void {
+    this.areAnyTodos$ = this._todosService.todos$.pipe(
+      map((todos) => todos.length > 0),
     );
   }
 
