@@ -7,8 +7,13 @@ import { FilterEnum } from '../types/filter.enum';
   providedIn: 'root',
 })
 export class TodosService {
-  todos$ = new BehaviorSubject<TodoInterface[]>([]);
-  filter$ = new BehaviorSubject<FilterEnum>(FilterEnum.all);
+  private todosSubject$ = new BehaviorSubject<TodoInterface[]>([]);
+  private filterSubject$ = new BehaviorSubject<FilterEnum>(FilterEnum.all);
+  private isAllTodosSelectedSubject$ = new BehaviorSubject<boolean>(false);
+
+  readonly todos$ = this.todosSubject$.asObservable();
+  readonly filter$ = this.filterSubject$.asObservable();
+  readonly isAllTodosSelected$ = this.isAllTodosSelectedSubject$.asObservable();
 
   addTodo(text: string): void {
     const newTodo: TodoInterface = {
@@ -16,8 +21,8 @@ export class TodosService {
       text: text,
       isCompleted: false,
     };
-    const updatedTodos = [...this.todos$.getValue(), newTodo];
+    const updatedTodos = [...this.todosSubject$.getValue(), newTodo];
 
-    this.todos$.next(updatedTodos);
+    this.todosSubject$.next(updatedTodos);
   }
 }

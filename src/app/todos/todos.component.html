@@ -1,5 +1,9 @@
 <section class="todoapp">
   <app-header />
-  <app-todo-main />
-  === {{ visibleTodos$ | async | json }} ===
+  <app-todo-main
+    [visibleTodos]="visibleTodos$ | async"
+    [isAllSelected]="isAllSelected$ | async"
+  />
 </section>
+
+== {{ isAllSelected$ | async }} ==

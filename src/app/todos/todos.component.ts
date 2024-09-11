@@ -21,16 +21,21 @@ import { FilterEnum } from './types/filter.enum';
 })
 export class TodosComponent implements OnInit {
   visibleTodos$!: Observable<TodoInterface[]>;
+  isAllSelected$!: Observable<boolean>;
 
   constructor(private _todosService: TodosService) {}
 
   ngOnInit(): void {
+    this.visibleTodos();
+    this.checkIfAllTodosSelected();
+  }
+
+  visibleTodos(): void {
     this.visibleTodos$ = combineLatest([
       this._todosService.todos$,
       this._todosService.filter$,
     ]).pipe(
       map(([todos, filter]: [TodoInterface[], FilterEnum]) => {
-        console.log('combine', todos, filter);
         if (filter == FilterEnum.active) {
           return todos.filter((todo) => !todo.isCompleted);
         }
@@ -40,6 +45,14 @@ export class TodosComponent implements OnInit {
         }
 
         return todos;
+      }),
+    );
+  }
+
+  checkIfAllTodosSelected(): void {
+    this.isAllSelected$ = this._todosService.todos$.pipe(
+      map((todos: TodoInterface[]) => {
+        return todos.length > 0 && todos.every((todo) => todo.isCompleted);
       }),
     );
   }
