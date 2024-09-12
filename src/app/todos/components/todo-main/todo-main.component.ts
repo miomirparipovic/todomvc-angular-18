@@ -14,9 +14,15 @@ export class TodoMainComponent {
   @Input() visibleTodos!: TodoInterface[] | null;
   @Input() isAllSelected!: boolean | null;
   @Output() toggleTodos = new EventEmitter<boolean>();
+  editItemId: string | null = null;
 
   onToggleTodos(event: Event): void {
     const target = event.target as HTMLInputElement;
     this.toggleTodos.emit(target.checked);
+  }
+
+  handleEditModeId(event: string): void {
+    // console.log('edit id', event);
+    this.editItemId = event;
   }
 }

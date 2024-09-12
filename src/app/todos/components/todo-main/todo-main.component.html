@@ -10,7 +10,11 @@
     <label for="toggle-all">Mark all as completed</label>
     <ul class="todo-list">
       @for (todo of visibleTodos; track todo.id) {
-        <app-todo-item [todo]="todo" />
+        <app-todo-item
+          [todo]="todo"
+          [isEditing]="editItemId === todo.id"
+          (editModeId)="handleEditModeId($event)"
+        />
       }
     </ul>
   </section>
