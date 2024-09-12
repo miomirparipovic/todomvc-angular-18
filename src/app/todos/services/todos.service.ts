@@ -37,4 +37,9 @@ export class TodosService {
 
     this.todosSubject$.next(updatedTodos);
   }
+
+  changeFilter(filterName: FilterEnum): void {
+    this.filterSubject$.next(filterName);
+    // console.log('filter in service', filterName);
+  }
 }

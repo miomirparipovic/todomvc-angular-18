@@ -24,6 +24,7 @@ export class TodosComponent implements OnInit {
   visibleTodos$!: Observable<TodoInterface[]>;
   areAllSelected$!: Observable<boolean>;
   areAnyTodos$!: Observable<boolean>;
+  currentFilter$!: Observable<FilterEnum>;
 
   constructor(private _todosService: TodosService) {}
 
@@ -31,6 +32,7 @@ export class TodosComponent implements OnInit {
     this.visibleTodos();
     this.checkIfAllTodosSelected();
     this.checkIfAnyTodoExist();
+    this.currentFilter$ = this._todosService.filter$;
   }
 
   visibleTodos(): void {
@@ -69,5 +71,10 @@ export class TodosComponent implements OnInit {
   handleToggleTodos(isCompletedFlag: boolean): void {
     // console.log('isCompletedFlag', isCompletedFlag);
     this._todosService.toggleTodos(isCompletedFlag);
+  }
+
+  handleChangeFilter(filter: FilterEnum): void {
+    // console.log('filter in handleChangeFilter', filter);
+    this._todosService.changeFilter(filter);
   }
 }

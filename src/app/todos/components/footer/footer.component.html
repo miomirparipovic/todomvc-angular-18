@@ -2,7 +2,36 @@
   <footer class="footer">
     <span class="todo-count">
       <strong>{{ numberOfVisibleTodos }}</strong>
+      {{ itemMessage(numberOfVisibleTodos) }}
     </span>
-    {{ itemMessage(numberOfVisibleTodos) }}
+    <ul class="filters">
+      <li>
+        <a
+          href="/"
+          routerLink="/all"
+          [ngClass]="{ selected: currentFilter === filterEnum.all }"
+          (click)="onChangeFilter($event, filterEnum.all)"
+          >All</a
+        >
+      </li>
+      <li>
+        <a
+          href="/active"
+          routerLink="/active"
+          [ngClass]="{ selected: currentFilter === filterEnum.active }"
+          (click)="onChangeFilter($event, filterEnum.active)"
+          >Active</a
+        >
+      </li>
+      <li>
+        <a
+          href="/completed"
+          routerLink="/completed"
+          [ngClass]="{ selected: currentFilter === filterEnum.completed }"
+          (click)="onChangeFilter($event, filterEnum.completed)"
+          >Completed</a
+        >
+      </li>
+    </ul>
   </footer>
 }

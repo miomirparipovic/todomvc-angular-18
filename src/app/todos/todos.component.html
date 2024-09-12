@@ -8,5 +8,7 @@
   <app-footer
     [areThereAnyTodos]="areAnyTodos$ | async"
     [numberOfVisibleTodos]="(visibleTodos$ | async)?.length"
+    [currentFilter]="currentFilter$ | async"
+    (changeFilter)="handleChangeFilter($event)"
   ></app-footer>
 </section>
