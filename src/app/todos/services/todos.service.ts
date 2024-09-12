@@ -26,6 +26,15 @@ export class TodosService {
     this.todosSubject$.next(updatedTodos);
   }
 
+  removeTodo(todoId: string): void {
+    const updatedTodos: TodoInterface[] = this.todosSubject$
+      .getValue()
+      .filter((todo) => todo.id != todoId);
+
+    // console.log('todos', todos);
+    this.todosSubject$.next(updatedTodos);
+  }
+
   toggleTodos(isCompleted: boolean): void {
     console.log('isCompleted in service', isCompleted);
     const updatedTodos = this.todosSubject$.getValue().map((todo) => {

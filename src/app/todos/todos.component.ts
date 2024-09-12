@@ -77,4 +77,8 @@ export class TodosComponent implements OnInit {
     // console.log('filter in handleChangeFilter', filter);
     this._todosService.changeFilter(filter);
   }
+
+  handleRemoveTodo(todoId: string): void {
+    this._todosService.removeTodo(todoId);
+  }
 }

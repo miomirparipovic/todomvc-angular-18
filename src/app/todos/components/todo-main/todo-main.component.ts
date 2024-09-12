@@ -14,6 +14,7 @@ export class TodoMainComponent {
   @Input() visibleTodos!: TodoInterface[] | null;
   @Input() isAllSelected!: boolean | null;
   @Output() toggleTodos = new EventEmitter<boolean>();
+  @Output() removeTodo = new EventEmitter<string>();
   editItemId: string | null = null;
 
   onToggleTodos(event: Event): void {
@@ -21,8 +22,12 @@ export class TodoMainComponent {
     this.toggleTodos.emit(target.checked);
   }
 
-  handleEditModeId(event: string): void {
+  handleEditModeId(todoId: string): void {
     // console.log('edit id', event);
-    this.editItemId = event;
+    this.editItemId = todoId;
+  }
+
+  passRemoveTodo(todoId: string): void {
+    this.removeTodo.emit(todoId);
   }
 }

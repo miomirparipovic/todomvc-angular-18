@@ -4,6 +4,7 @@
     [visibleTodos]="visibleTodos$ | async"
     [isAllSelected]="areAllSelected$ | async"
     (toggleTodos)="handleToggleTodos($event)"
+    (removeTodo)="handleRemoveTodo($event)"
   />
   <app-footer
     [areThereAnyTodos]="areAnyTodos$ | async"
