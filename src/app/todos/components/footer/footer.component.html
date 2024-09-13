@@ -33,5 +33,14 @@
         >
       </li>
     </ul>
+    @if (numberOfCompletedTodos) {
+      <button
+        class="clear-completed"
+        type="button"
+        (click)="onClearCompleted()"
+      >
+        Clear Completed
+      </button>
+    }
   </footer>
 }

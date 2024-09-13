@@ -11,7 +11,9 @@
   <app-footer
     [areThereAnyTodos]="areAnyTodos$ | async"
     [numberOfActiveTodos]="activeTodos$ | async"
+    [numberOfCompletedTodos]="completedTodos$ | async"
     [currentFilter]="currentFilter$ | async"
     (changeFilter)="handleChangeFilter($event)"
+    (clearCompleted)="handleClearCompoleted()"
   ></app-footer>
 </section>

@@ -13,8 +13,10 @@ import { RouterLink } from '@angular/router';
 export class FooterComponent {
   @Input() areThereAnyTodos!: boolean | null;
   @Input() numberOfActiveTodos!: number | null;
+  @Input() numberOfCompletedTodos!: number | null;
   @Input() currentFilter!: FilterEnum | null;
   @Output() changeFilter = new EventEmitter<FilterEnum>();
+  @Output() clearCompleted = new EventEmitter<void>();
   filterEnum = FilterEnum;
 
   itemMessage(numberOfVisibleTodos: number | null): string | undefined {
@@ -34,5 +36,9 @@ export class FooterComponent {
   onChangeFilter(event: Event, filter: FilterEnum) {
     event.preventDefault();
     this.changeFilter.emit(filter);
+  }
+
+  onClearCompleted(): void {
+    this.clearCompleted.emit();
   }
 }
