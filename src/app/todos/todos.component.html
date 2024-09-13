@@ -4,6 +4,14 @@
     [visibleTodos]="visibleTodos$ | async"
     [isAllSelected]="areAllSelected$ | async"
     (toggleTodos)="handleToggleTodos($event)"
+    (removeTodo)="handleRemoveTodo($event)"
+    (toggleTodo)="handleToggleTodo($event)"
+    (editedText)="handleEditedTextWithId($event)"
   />
-  <app-footer [areThereAnyTodos]="areAnyTodos$ | async"></app-footer>
+  <app-footer
+    [areThereAnyTodos]="areAnyTodos$ | async"
+    [numberOfActiveTodos]="activeTodos$ | async"
+    [currentFilter]="currentFilter$ | async"
+    (changeFilter)="handleChangeFilter($event)"
+  ></app-footer>
 </section>

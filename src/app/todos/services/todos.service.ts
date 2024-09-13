@@ -26,13 +26,54 @@ export class TodosService {
     this.todosSubject$.next(updatedTodos);
   }
 
+  removeTodo(todoId: string): void {
+    const updatedTodos: TodoInterface[] = this.todosSubject$
+      .getValue()
+      .filter((todo) => todo.id != todoId);
+
+    // console.log('todos', todos);
+    this.todosSubject$.next(updatedTodos);
+  }
+
+  toggleTodo(todoId: string): void {
+    const updatedTodos = this.todosSubject$.getValue().map((todo) => {
+      if (todo.id == todoId) {
+        return { ...todo, isCompleted: !todo.isCompleted };
+      }
+
+      return todo;
+    });
+
+    this.todosSubject$.next(updatedTodos);
+  }
+
   toggleTodos(isCompleted: boolean): void {
-    console.log('isCompleted in service', isCompleted);
+    // console.log('isCompleted in service', isCompleted);
     const updatedTodos = this.todosSubject$.getValue().map((todo) => {
       return {
         ...todo,
         isCompleted,
       };
+    });
+
+    this.todosSubject$.next(updatedTodos);
+  }
+
+  changeFilter(filterName: FilterEnum): void {
+    this.filterSubject$.next(filterName);
+    // console.log('filter in service', filterName);
+  }
+
+  updateEditedText(editId: string, editText: string): void {
+    const updatedTodos = this.todosSubject$.getValue().map((todo) => {
+      if (todo.id == editId) {
+        return {
+          ...todo,
+          text: editText,
+        };
+      }
+
+      return todo;
     });
 
     this.todosSubject$.next(updatedTodos);

@@ -22,15 +22,19 @@ import { FooterComponent } from './components/footer/footer.component';
 })
 export class TodosComponent implements OnInit {
   visibleTodos$!: Observable<TodoInterface[]>;
+  activeTodos$!: Observable<number>;
   areAllSelected$!: Observable<boolean>;
   areAnyTodos$!: Observable<boolean>;
+  currentFilter$!: Observable<FilterEnum>;
 
   constructor(private _todosService: TodosService) {}
 
   ngOnInit(): void {
     this.visibleTodos();
+    this.activeTodos();
     this.checkIfAllTodosSelected();
     this.checkIfAnyTodoExist();
+    this.currentFilter$ = this._todosService.filter$;
   }
 
   visibleTodos(): void {
@@ -52,6 +56,14 @@ export class TodosComponent implements OnInit {
     );
   }
 
+  activeTodos(): void {
+    this.activeTodos$ = this._todosService.todos$.pipe(
+      map((todos) => {
+        return todos.filter((todo) => !todo.isCompleted).length;
+      }),
+    );
+  }
+
   checkIfAllTodosSelected(): void {
     this.areAllSelected$ = this._todosService.todos$.pipe(
       map((todos: TodoInterface[]) => {
@@ -66,8 +78,26 @@ export class TodosComponent implements OnInit {
     );
   }
 
+  handleToggleTodo(todoId: string): void {
+    this._todosService.toggleTodo(todoId);
+  }
+
   handleToggleTodos(isCompletedFlag: boolean): void {
     // console.log('isCompletedFlag', isCompletedFlag);
     this._todosService.toggleTodos(isCompletedFlag);
+  }
+
+  handleChangeFilter(filter: FilterEnum): void {
+    // console.log('filter in handleChangeFilter', filter);
+    this._todosService.changeFilter(filter);
+  }
+
+  handleRemoveTodo(todoId: string): void {
+    this._todosService.removeTodo(todoId);
+  }
+
+  handleEditedTextWithId(editedTextWithId: string[]): void {
+    const [editId, editText] = editedTextWithId;
+    this._todosService.updateEditedText(editId, editText);
   }
 }
