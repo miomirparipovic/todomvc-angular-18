@@ -6,6 +6,7 @@
     (toggleTodos)="handleToggleTodos($event)"
     (removeTodo)="handleRemoveTodo($event)"
     (toggleTodo)="handleToggleTodo($event)"
+    (editedText)="handleEditedTextWithId($event)"
   />
   <app-footer
     [areThereAnyTodos]="areAnyTodos$ | async"

@@ -15,15 +15,21 @@ export class TodoItemComponent implements OnInit {
   @Output() editModeId = new EventEmitter<string>();
   @Output() removeTodo = new EventEmitter<string>();
   @Output() toggleTodo = new EventEmitter<string>();
+  @Output() editedText = new EventEmitter<string[]>();
+  editingText!: string;
 
   ngOnInit(): void {
     this.isEditing = false;
+    this.editingText = this.todo.text;
   }
 
   setTodoInEditMode(): void {
-    // console.log('set in edit mode');
-    console.log(this.todo.id);
+    // console.log(this.todo.id);
     this.editModeId.emit(this.todo.id);
+  }
+
+  unsetTodoEditMode(): void {
+    this.editModeId.emit('');
   }
 
   onRemoveTodo(): void {
@@ -32,5 +38,30 @@ export class TodoItemComponent implements OnInit {
 
   onToggleTodo(): void {
     this.toggleTodo.emit(this.todo.id);
+  }
+
+  onEditingText(event: KeyboardEvent): void {
+    const target = event.target as HTMLInputElement;
+
+    if (
+      event.key == 'Enter' &&
+      this.editingText &&
+      this.editingText != this.todo.text
+    ) {
+      this.editedText.emit([this.todo.id, this.editingText]);
+      this.unsetTodoEditMode();
+      return;
+    }
+
+    if (event.key == 'Escape') {
+      this.unsetTodoEditMode();
+      this.editingText = this.todo.text;
+      return;
+    }
+
+    if (target) {
+      this.editingText = target.value;
+      return;
+    }
   }
 }

@@ -63,4 +63,19 @@ export class TodosService {
     this.filterSubject$.next(filterName);
     // console.log('filter in service', filterName);
   }
+
+  updateEditedText(editedTextWithId: string[]): void {
+    const updatedTodos = this.todosSubject$.getValue().map((todo) => {
+      if (todo.id == editedTextWithId[0]) {
+        return {
+          ...todo,
+          text: editedTextWithId[1],
+        };
+      }
+
+      return todo;
+    });
+
+    this.todosSubject$.next(updatedTodos);
+  }
 }

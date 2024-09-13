@@ -95,4 +95,8 @@ export class TodosComponent implements OnInit {
   handleRemoveTodo(todoId: string): void {
     this._todosService.removeTodo(todoId);
   }
+
+  handleEditedTextWithId(editedTextWithId: string[]): void {
+    this._todosService.updateEditedText(editedTextWithId);
+  }
 }

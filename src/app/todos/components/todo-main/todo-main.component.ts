@@ -16,7 +16,8 @@ export class TodoMainComponent {
   @Output() toggleTodos = new EventEmitter<boolean>();
   @Output() removeTodo = new EventEmitter<string>();
   @Output() toggleTodo = new EventEmitter<string>();
-  editItemId: string | null = null;
+  @Output() editedText = new EventEmitter<string[]>();
+  editItemId: string = '';
 
   onToggleTodos(event: Event): void {
     const target = event.target as HTMLInputElement;
@@ -34,5 +35,9 @@ export class TodoMainComponent {
 
   passToggleTodo(todoId: string): void {
     this.toggleTodo.emit(todoId);
+  }
+
+  passEditedText(editedTextWithId: string[]): void {
+    this.editedText.emit(editedTextWithId);
   }
 }
