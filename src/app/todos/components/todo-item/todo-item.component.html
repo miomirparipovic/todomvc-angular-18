@@ -14,9 +14,11 @@
   @if (isEditing) {
     <div class="input-container">
       <input
+        #editInputRef
         class="edit"
         [value]="editingText"
         (keyup)="onEditingText($event)"
+        (blur)="handleBlur()"
       />
     </div>
   }
