@@ -83,6 +83,7 @@ export class TodoItemComponent implements OnInit, AfterViewChecked {
   }
 
   handleBlur(): void {
+    this.editingText = this.todo.text;
     this.unsetTodoEditMode();
   }
 }
