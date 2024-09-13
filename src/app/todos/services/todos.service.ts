@@ -64,12 +64,12 @@ export class TodosService {
     // console.log('filter in service', filterName);
   }
 
-  updateEditedText(editedTextWithId: string[]): void {
+  updateEditedText(editId: string, editText: string): void {
     const updatedTodos = this.todosSubject$.getValue().map((todo) => {
-      if (todo.id == editedTextWithId[0]) {
+      if (todo.id == editId) {
         return {
           ...todo,
-          text: editedTextWithId[1],
+          text: editText,
         };
       }
 

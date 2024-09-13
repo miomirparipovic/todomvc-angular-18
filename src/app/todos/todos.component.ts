@@ -97,6 +97,7 @@ export class TodosComponent implements OnInit {
   }
 
   handleEditedTextWithId(editedTextWithId: string[]): void {
-    this._todosService.updateEditedText(editedTextWithId);
+    const [editId, editText] = editedTextWithId;
+    this._todosService.updateEditedText(editId, editText);
   }
 }
