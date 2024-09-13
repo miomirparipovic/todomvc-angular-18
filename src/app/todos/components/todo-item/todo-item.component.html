@@ -1,8 +1,14 @@
+<!-- eslint-disable @angular-eslint/template/no-autofocus -->
 <!-- eslint-disable @angular-eslint/template/label-has-associated-control -->
 <!-- eslint-disable @angular-eslint/template/elements-content -->
 <li [ngClass]="{ editing: isEditing }">
   <div class="view">
-    <input type="checkbox" class="toggle" id="toggle" />
+    <input
+      type="checkbox"
+      class="toggle"
+      [checked]="todo.isCompleted"
+      (change)="onToggleTodo()"
+    />
     <label (dblclick)="setTodoInEditMode()">{{ todo.text }}</label>
     <button class="destroy" (click)="onRemoveTodo()"></button>
   </div>

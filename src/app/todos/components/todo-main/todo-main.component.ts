@@ -15,6 +15,7 @@ export class TodoMainComponent {
   @Input() isAllSelected!: boolean | null;
   @Output() toggleTodos = new EventEmitter<boolean>();
   @Output() removeTodo = new EventEmitter<string>();
+  @Output() toggleTodo = new EventEmitter<string>();
   editItemId: string | null = null;
 
   onToggleTodos(event: Event): void {
@@ -29,5 +30,9 @@ export class TodoMainComponent {
 
   passRemoveTodo(todoId: string): void {
     this.removeTodo.emit(todoId);
+  }
+
+  passToggleTodo(todoId: string): void {
+    this.toggleTodo.emit(todoId);
   }
 }

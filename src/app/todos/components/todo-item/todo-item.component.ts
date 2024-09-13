@@ -14,6 +14,7 @@ export class TodoItemComponent implements OnInit {
   @Input() isEditing!: boolean;
   @Output() editModeId = new EventEmitter<string>();
   @Output() removeTodo = new EventEmitter<string>();
+  @Output() toggleTodo = new EventEmitter<string>();
 
   ngOnInit(): void {
     this.isEditing = false;
@@ -27,5 +28,9 @@ export class TodoItemComponent implements OnInit {
 
   onRemoveTodo(): void {
     this.removeTodo.emit(this.todo.id);
+  }
+
+  onToggleTodo(): void {
+    this.toggleTodo.emit(this.todo.id);
   }
 }

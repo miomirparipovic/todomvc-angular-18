@@ -12,19 +12,19 @@ import { RouterLink } from '@angular/router';
 })
 export class FooterComponent {
   @Input() areThereAnyTodos!: boolean | null;
-  @Input() numberOfVisibleTodos?: number;
+  @Input() numberOfActiveTodos!: number | null;
   @Input() currentFilter!: FilterEnum | null;
   @Output() changeFilter = new EventEmitter<FilterEnum>();
   filterEnum = FilterEnum;
 
-  itemMessage(numberOfVisibleTodos: number | undefined): string | undefined {
+  itemMessage(numberOfVisibleTodos: number | null): string | undefined {
     if (numberOfVisibleTodos == undefined) {
       return;
     }
 
     let word = 'item';
 
-    if (this.numberOfVisibleTodos != 1) {
+    if (this.numberOfActiveTodos != 1) {
       word += 's';
     }
 

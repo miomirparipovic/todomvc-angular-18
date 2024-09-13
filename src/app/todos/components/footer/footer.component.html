@@ -1,8 +1,8 @@
 @if (areThereAnyTodos) {
   <footer class="footer">
     <span class="todo-count">
-      <strong>{{ numberOfVisibleTodos }}</strong>
-      {{ itemMessage(numberOfVisibleTodos) }}
+      <strong>{{ numberOfActiveTodos }}</strong>
+      {{ itemMessage(numberOfActiveTodos) }}
     </span>
     <ul class="filters">
       <li>

@@ -22,6 +22,7 @@ import { FooterComponent } from './components/footer/footer.component';
 })
 export class TodosComponent implements OnInit {
   visibleTodos$!: Observable<TodoInterface[]>;
+  activeTodos$!: Observable<number>;
   areAllSelected$!: Observable<boolean>;
   areAnyTodos$!: Observable<boolean>;
   currentFilter$!: Observable<FilterEnum>;
@@ -30,6 +31,7 @@ export class TodosComponent implements OnInit {
 
   ngOnInit(): void {
     this.visibleTodos();
+    this.activeTodos();
     this.checkIfAllTodosSelected();
     this.checkIfAnyTodoExist();
     this.currentFilter$ = this._todosService.filter$;
@@ -54,6 +56,14 @@ export class TodosComponent implements OnInit {
     );
   }
 
+  activeTodos(): void {
+    this.activeTodos$ = this._todosService.todos$.pipe(
+      map((todos) => {
+        return todos.filter((todo) => !todo.isCompleted).length;
+      }),
+    );
+  }
+
   checkIfAllTodosSelected(): void {
     this.areAllSelected$ = this._todosService.todos$.pipe(
       map((todos: TodoInterface[]) => {
@@ -66,6 +76,10 @@ export class TodosComponent implements OnInit {
     this.areAnyTodos$ = this._todosService.todos$.pipe(
       map((todos) => todos.length > 0),
     );
+  }
+
+  handleToggleTodo(todoId: string): void {
+    this._todosService.toggleTodo(todoId);
   }
 
   handleToggleTodos(isCompletedFlag: boolean): void {

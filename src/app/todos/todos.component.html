@@ -5,10 +5,11 @@
     [isAllSelected]="areAllSelected$ | async"
     (toggleTodos)="handleToggleTodos($event)"
     (removeTodo)="handleRemoveTodo($event)"
+    (toggleTodo)="handleToggleTodo($event)"
   />
   <app-footer
     [areThereAnyTodos]="areAnyTodos$ | async"
-    [numberOfVisibleTodos]="(visibleTodos$ | async)?.length"
+    [numberOfActiveTodos]="activeTodos$ | async"
     [currentFilter]="currentFilter$ | async"
     (changeFilter)="handleChangeFilter($event)"
   ></app-footer>

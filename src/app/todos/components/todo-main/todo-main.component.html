@@ -15,6 +15,7 @@
           [isEditing]="editItemId === todo.id"
           (editModeId)="handleEditModeId($event)"
           (removeTodo)="passRemoveTodo($event)"
+          (toggleTodo)="passToggleTodo($event)"
         />
       }
     </ul>

@@ -35,8 +35,20 @@ export class TodosService {
     this.todosSubject$.next(updatedTodos);
   }
 
+  toggleTodo(todoId: string): void {
+    const updatedTodos = this.todosSubject$.getValue().map((todo) => {
+      if (todo.id == todoId) {
+        return { ...todo, isCompleted: !todo.isCompleted };
+      }
+
+      return todo;
+    });
+
+    this.todosSubject$.next(updatedTodos);
+  }
+
   toggleTodos(isCompleted: boolean): void {
-    console.log('isCompleted in service', isCompleted);
+    // console.log('isCompleted in service', isCompleted);
     const updatedTodos = this.todosSubject$.getValue().map((todo) => {
       return {
         ...todo,
