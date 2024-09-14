@@ -9,7 +9,7 @@
         <a
           href="/"
           routerLink="/all"
-          [ngClass]="{ selected: currentFilter === filterEnum.all }"
+          [class.selected]="currentFilter === filterEnum.all"
           (click)="onChangeFilter($event, filterEnum.all)"
           >All</a
         >
@@ -18,7 +18,7 @@
         <a
           href="/active"
           routerLink="/active"
-          [ngClass]="{ selected: currentFilter === filterEnum.active }"
+          [class.selected]="currentFilter === filterEnum.active"
           (click)="onChangeFilter($event, filterEnum.active)"
           >Active</a
         >
@@ -27,7 +27,7 @@
         <a
           href="/completed"
           routerLink="/completed"
-          [ngClass]="{ selected: currentFilter === filterEnum.completed }"
+          [class.selected]="currentFilter === filterEnum.completed"
           (click)="onChangeFilter($event, filterEnum.completed)"
           >Completed</a
         >

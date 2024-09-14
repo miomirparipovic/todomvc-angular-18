@@ -9,12 +9,11 @@ import {
   ViewChild,
 } from '@angular/core';
 import { TodoInterface } from '../../types/todo.interface';
-import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-todo-item',
   standalone: true,
-  imports: [NgClass],
+  imports: [],
   templateUrl: './todo-item.component.html',
   styleUrl: './todo-item.component.css',
 })
