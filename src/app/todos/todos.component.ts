@@ -23,6 +23,7 @@ import { FooterComponent } from './components/footer/footer.component';
 export class TodosComponent implements OnInit {
   visibleTodos$!: Observable<TodoInterface[]>;
   activeTodos$!: Observable<number>;
+  completedTodos$!: Observable<number>;
   areAllSelected$!: Observable<boolean>;
   areAnyTodos$!: Observable<boolean>;
   currentFilter$!: Observable<FilterEnum>;
@@ -32,6 +33,7 @@ export class TodosComponent implements OnInit {
   ngOnInit(): void {
     this.visibleTodos();
     this.activeTodos();
+    this.completedTodos();
     this.checkIfAllTodosSelected();
     this.checkIfAnyTodoExist();
     this.currentFilter$ = this._todosService.filter$;
@@ -60,6 +62,14 @@ export class TodosComponent implements OnInit {
     this.activeTodos$ = this._todosService.todos$.pipe(
       map((todos) => {
         return todos.filter((todo) => !todo.isCompleted).length;
+      }),
+    );
+  }
+
+  completedTodos(): void {
+    this.completedTodos$ = this._todosService.todos$.pipe(
+      map((todos) => {
+        return todos.filter((todo) => todo.isCompleted).length;
       }),
     );
   }
@@ -99,5 +109,9 @@ export class TodosComponent implements OnInit {
   handleEditedTextWithId(editedTextWithId: string[]): void {
     const [editId, editText] = editedTextWithId;
     this._todosService.updateEditedText(editId, editText);
+  }
+
+  handleClearCompoleted() {
+    this._todosService.clearCompleted();
   }
 }

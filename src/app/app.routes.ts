@@ -24,4 +24,8 @@ export const routes: Routes = [
     redirectTo: '/all',
     pathMatch: 'full',
   },
+  {
+    path: '**',
+    component: TodosComponent,
+  },
 ];
