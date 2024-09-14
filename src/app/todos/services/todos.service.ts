@@ -110,6 +110,4 @@ export class TodosService {
     this.todosSubject$.next(updatedTodos);
     this.saveTodosToLocalStorage();
   }
-
-  getLocalStorageKey() {}
 }
