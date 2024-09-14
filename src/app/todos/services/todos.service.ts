@@ -7,6 +7,7 @@ import { FilterEnum } from '../types/filter.enum';
   providedIn: 'root',
 })
 export class TodosService {
+  private localStorageKey = 'todo-angular';
   private todosSubject$ = new BehaviorSubject<TodoInterface[]>([]);
   private filterSubject$ = new BehaviorSubject<FilterEnum>(FilterEnum.all);
   private isAllTodosSelectedSubject$ = new BehaviorSubject<boolean>(false);
@@ -14,6 +15,23 @@ export class TodosService {
   readonly todos$ = this.todosSubject$.asObservable();
   readonly filter$ = this.filterSubject$.asObservable();
   readonly isAllTodosSelected$ = this.isAllTodosSelectedSubject$.asObservable();
+
+  constructor() {
+    this.loadTodosFromLocalStorage();
+  }
+
+  loadTodosFromLocalStorage(): void {
+    const todos = localStorage.getItem(this.localStorageKey);
+
+    if (todos) {
+      this.todosSubject$.next(JSON.parse(todos));
+    }
+  }
+
+  saveTodosToLocalStorage(): void {
+    const currentTodos = this.todosSubject$.getValue();
+    localStorage.setItem(this.localStorageKey, JSON.stringify(currentTodos));
+  }
 
   addTodo(text: string): void {
     const newTodo: TodoInterface = {
@@ -24,6 +42,7 @@ export class TodosService {
     const updatedTodos = [...this.todosSubject$.getValue(), newTodo];
 
     this.todosSubject$.next(updatedTodos);
+    this.saveTodosToLocalStorage();
   }
 
   removeTodo(todoId: string): void {
@@ -33,6 +52,7 @@ export class TodosService {
 
     // console.log('todos', todos);
     this.todosSubject$.next(updatedTodos);
+    this.saveTodosToLocalStorage();
   }
 
   toggleTodo(todoId: string): void {
@@ -45,6 +65,7 @@ export class TodosService {
     });
 
     this.todosSubject$.next(updatedTodos);
+    this.saveTodosToLocalStorage();
   }
 
   toggleTodos(isCompleted: boolean): void {
@@ -57,6 +78,7 @@ export class TodosService {
     });
 
     this.todosSubject$.next(updatedTodos);
+    this.saveTodosToLocalStorage();
   }
 
   changeFilter(filterName: FilterEnum): void {
@@ -77,6 +99,7 @@ export class TodosService {
     });
 
     this.todosSubject$.next(updatedTodos);
+    this.saveTodosToLocalStorage();
   }
 
   clearCompleted() {
@@ -85,5 +108,8 @@ export class TodosService {
     });
 
     this.todosSubject$.next(updatedTodos);
+    this.saveTodosToLocalStorage();
   }
+
+  getLocalStorageKey() {}
 }
