@@ -1,4 +1,3 @@
-import { NgClass } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FilterEnum } from '../../types/filter.enum';
 import { RouterLink } from '@angular/router';
@@ -6,7 +5,7 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [NgClass, RouterLink],
+  imports: [RouterLink],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.css',
 })
