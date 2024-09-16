@@ -1,1 +1,11 @@
-<p>todo-header works!</p>
+<!-- eslint-disable @angular-eslint/template/no-autofocus -->
+<header class="header">
+  <h1>todos</h1>
+  <input
+    autofocus
+    class="new-todo"
+    placeholder="What needs to be done?"
+    [value]="todoText"
+    (keyup)="onInputTodo($event)"
+  />
+</header>
