@@ -1,5 +1,8 @@
 <section class="todoapp">
   <app-todo-header (newTodo)="handleNewTodo($event)" />
   <app-todo-main [visableTodosSignal]="visibleTodosSignal()" />
-  <app-todo-footer />
+  <app-todo-footer
+    [currentFilter]="currentFilterSignal()"
+    (changeFilter)="handleChangeFilter($event)"
+  />
 </section>

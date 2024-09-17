@@ -7,6 +7,14 @@ export const routes: Routes = [
     component: TodosComponent,
   },
   {
+    path: 'active',
+    component: TodosComponent,
+  },
+  {
+    path: 'completed',
+    component: TodosComponent,
+  },
+  {
     path: '',
     redirectTo: '/all',
     pathMatch: 'full',

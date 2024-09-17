@@ -14,6 +14,7 @@ import { FilterEnum } from './models/filter.enum';
   styleUrl: './todos.component.css',
 })
 export class TodosComponent {
+  currentFilterSignal: Signal<FilterEnum>;
   visibleTodosSignal: Signal<TodoInterface[]> = computed(
     (): TodoInterface[] => {
       const todos = this._todosService.todosSignal();
@@ -33,9 +34,19 @@ export class TodosComponent {
     },
   );
 
-  constructor(private _todosService: TodosService) {}
+  constructor(private _todosService: TodosService) {
+    this.currentFilterSignal = this._todosService.filterSignal;
+  }
 
   handleNewTodo(event: string): void {
     this._todosService.addTodo(event);
   }
+
+  handleChangeFilter(filter: FilterEnum): void {
+    this._todosService.filterSignal = filter;
+  }
+
+  // handleChangeFilter(filter: FilterEnum): void {
+  //   this._todosService.changeFilterSignal(filter);
+  // }
 }

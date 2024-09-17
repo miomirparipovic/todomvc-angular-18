@@ -36,4 +36,12 @@ export class TodosService {
   // getFilterSignal(): Signal<FilterEnum> {
   //   return this._filterSignal;
   // }
+
+  set filterSignal(filter: FilterEnum) {
+    this._filterSignal.set(filter);
+  }
+
+  // changeFilterSignal(filter: FilterEnum): void {
+  //   this._filterSignal.set(filter);
+  // }
 }
