@@ -1,4 +1,4 @@
-import { Component, computed, OnInit, Signal } from '@angular/core';
+import { Component, computed, Signal } from '@angular/core';
 import { TodoHeaderComponent } from './components/todo-header/todo-header.component';
 import { TodoFooterComponent } from './components/todo-footer/todo-footer.component';
 import { TodoMainComponent } from './components/todo-main/todo-main.component';
@@ -13,36 +13,27 @@ import { FilterEnum } from './models/filter.enum';
   imports: [TodoHeaderComponent, TodoFooterComponent, TodoMainComponent],
   styleUrl: './todos.component.css',
 })
-export class TodosComponent implements OnInit {
-  private _todosService: TodosService;
-  todosSignal!: Signal<TodoInterface[]>;
-  visibleTodosSignal!: Signal<TodoInterface[]>;
-  currentFilterSignal!: Signal<FilterEnum>;
+export class TodosComponent {
+  visibleTodosSignal: Signal<TodoInterface[]> = computed(
+    (): TodoInterface[] => {
+      const todos = this._todosService.todosSignal();
+      const currentFilter = this._todosService.filterSignal();
 
-  constructor(_todosService: TodosService) {
-    this._todosService = _todosService;
-  }
-
-  ngOnInit(): void {
-    this.currentFilterSignal = this._todosService.filterSignal;
-    this.todosSignal = this._todosService.todosSignal;
-    // this.todosSignal = this._todosService.getTodosSignal();
-    this.visibleTodosSignal = computed((): TodoInterface[] => {
-      if (this.currentFilterSignal() == FilterEnum.active) {
-        return this.todosSignal().filter(
+      if (currentFilter == FilterEnum.active) {
+        return todos.filter(
           (todo: TodoInterface): boolean => !todo.isCompleted,
         );
       }
 
-      if (this.currentFilterSignal() == FilterEnum.completed) {
-        return this.todosSignal().filter(
-          (todo: TodoInterface): boolean => todo.isCompleted,
-        );
+      if (currentFilter == FilterEnum.completed) {
+        return todos.filter((todo: TodoInterface): boolean => todo.isCompleted);
       }
 
-      return this.todosSignal();
-    });
-  }
+      return todos;
+    },
+  );
+
+  constructor(private _todosService: TodosService) {}
 
   handleNewTodo(event: string): void {
     this._todosService.addTodo(event);

@@ -13,7 +13,7 @@ export class TodosService {
     const newTodo: TodoInterface = {
       id: 'id_' + `${Date.now().toString()}`,
       text,
-      isCompleted: true,
+      isCompleted: false,
     };
 
     this._todosSignal.update((todos) => [...todos, newTodo]);
