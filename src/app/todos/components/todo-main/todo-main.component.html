@@ -1,6 +1,6 @@
 <section class="main">
   <ul class="todo-list">
-    @for (todo of todosSignal(); track todo.id) {
+    @for (todo of visableTodosSignal(); track todo.id) {
       <li>
         {{ todo.text }}
       </li>

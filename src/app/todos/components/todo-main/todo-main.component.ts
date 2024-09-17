@@ -10,5 +10,5 @@ import { TodoInterface } from '../../models/todo.interface';
 })
 export class TodoMainComponent {
   // todosSignal = input.required<TodoInterface[]>();
-  todosSignal = input.required<TodoInterface[]>();
+  visableTodosSignal = input.required<TodoInterface[]>();
 }

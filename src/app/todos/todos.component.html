@@ -1,5 +1,5 @@
 <section class="todoapp">
   <app-todo-header (newTodo)="handleNewTodo($event)" />
-  <app-todo-main [todosSignal]="todosSignal()" />
+  <app-todo-main [visableTodosSignal]="visibleTodosSignal()" />
   <app-todo-footer />
 </section>
