@@ -1,4 +1,4 @@
-import { Component, output } from '@angular/core';
+import { Component, output, signal } from '@angular/core';
 
 @Component({
   selector: 'app-todo-header',
@@ -8,20 +8,20 @@ import { Component, output } from '@angular/core';
   styleUrl: './todo-header.component.css',
 })
 export class TodoHeaderComponent {
-  todoText: string = '';
+  todoText = signal<string>('');
   newTodo = output<string>();
 
   onInputTodo(event: KeyboardEvent): void {
     const target = event.target as HTMLInputElement;
 
     if (event.key == 'Enter') {
-      this.newTodo.emit(this.todoText);
-      this.todoText = '';
+      this.newTodo.emit(this.todoText());
+      this.todoText.set('');
       return;
     }
 
     if (target) {
-      this.todoText = target.value;
+      this.todoText.set(target.value);
       return;
     }
   }

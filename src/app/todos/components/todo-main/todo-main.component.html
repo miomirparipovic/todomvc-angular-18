@@ -1,1 +1,9 @@
-<p>todo-main works!</p>
+<section class="main">
+  <ul class="todo-list">
+    @for (todo of visableTodosSignal(); track todo.id) {
+      <li>
+        {{ todo.text }}
+      </li>
+    }
+  </ul>
+</section>

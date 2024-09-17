@@ -5,7 +5,7 @@
     autofocus
     class="new-todo"
     placeholder="What needs to be done?"
-    [value]="todoText"
+    [value]="todoText()"
     (keyup)="onInputTodo($event)"
   />
 </header>
