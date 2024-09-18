@@ -33,6 +33,15 @@ export class TodosComponent {
       return todos;
     },
   );
+  activeCount: Signal<number> = computed((): number => {
+    const todos: TodoInterface[] = this._todosService.todosSignal();
+
+    return todos.filter((todo: TodoInterface): boolean => !todo.isCompleted)
+      .length;
+  });
+  areAnyTodosLeft: Signal<boolean> = computed((): boolean => {
+    return this._todosService.todosSignal().length > 0;
+  });
 
   constructor(private _todosService: TodosService) {
     this.currentFilterSignal = this._todosService.filterSignal;
@@ -49,4 +58,10 @@ export class TodosComponent {
   // handleChangeFilter(filter: FilterEnum): void {
   //   this._todosService.changeFilterSignal(filter);
   // }
+
+  handleEditedTextWithId(editedTextAndId: string[]): void {
+    const [editTodoId, editText] = editedTextAndId;
+
+    this._todosService.updateEditedTodoText(editTodoId, editText);
+  }
 }
