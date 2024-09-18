@@ -28,6 +28,14 @@ export class TodosService {
   //   return this._todosSignal;
   // }
 
+  set todosSignal(newTodos: TodoInterface[]) {
+    this._todosSignal.set(newTodos);
+  }
+
+  // changeTodosSignal(newTodos: TodoInterface[]): void {
+  //   this._todosSignal.set(newTodos);
+  // }
+
   // use one of these
   get filterSignal(): Signal<FilterEnum> {
     return this._filterSignal;
@@ -44,4 +52,20 @@ export class TodosService {
   // changeFilterSignal(filter: FilterEnum): void {
   //   this._filterSignal.set(filter);
   // }
+
+  updateEditedTodoText(editId: string, editText: string): void {
+    const updatedTodos = this.todosSignal().map((todo: TodoInterface) => {
+      if (todo.id == editId) {
+        return {
+          ...todo,
+          text: editText,
+        };
+      }
+
+      return todo;
+    });
+
+    this.todosSignal = updatedTodos;
+    // this.changeTodosSignal(updatedTodos);
+  }
 }

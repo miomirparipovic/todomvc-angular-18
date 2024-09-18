@@ -5,6 +5,7 @@
         [todo]="todo"
         [isEditing]="editItemId() === todo.id"
         (editItemId)="handleSetTodoInEditMode($event)"
+        (editedText)="passOnEditedText($event)"
       />
     }
   </ul>

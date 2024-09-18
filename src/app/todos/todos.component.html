@@ -1,6 +1,9 @@
 <section class="todoapp">
   <app-todo-header (newTodo)="handleNewTodo($event)" />
-  <app-todo-main [visableTodosSignal]="visibleTodosSignal()" />
+  <app-todo-main
+    [visableTodosSignal]="visibleTodosSignal()"
+    (editedText)="handleEditedTextWithId($event)"
+  />
   <app-todo-footer
     [currentFilter]="currentFilterSignal()"
     [activeCount]="activeCount()"

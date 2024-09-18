@@ -9,7 +9,13 @@
 
   @if (isEditing()) {
     <div class="input-container">
-      <input class="edit" [value]="editingText()" />
+      <input
+        #editInputRef
+        class="edit"
+        [value]="currentText()"
+        (keyup)="onEditingText($event)"
+        (blur)="handleBlur()"
+      />
     </div>
   }
 </li>

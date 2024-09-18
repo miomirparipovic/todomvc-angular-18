@@ -58,4 +58,10 @@ export class TodosComponent {
   // handleChangeFilter(filter: FilterEnum): void {
   //   this._todosService.changeFilterSignal(filter);
   // }
+
+  handleEditedTextWithId(editedTextAndId: string[]): void {
+    const [editTodoId, editText] = editedTextAndId;
+
+    this._todosService.updateEditedTodoText(editTodoId, editText);
+  }
 }
