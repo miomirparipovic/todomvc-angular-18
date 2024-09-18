@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, signal } from '@angular/core';
 import { TodoInterface } from '../../models/todo.interface';
 import { TodoItemComponent } from '../todo-item/todo-item.component';
 
@@ -11,4 +11,9 @@ import { TodoItemComponent } from '../todo-item/todo-item.component';
 })
 export class TodoMainComponent {
   visableTodosSignal = input.required<TodoInterface[]>();
+  editItemId = signal<string | null>(null);
+
+  handleSetTodoInEditMode(todoId: string) {
+    this.editItemId.set(todoId);
+  }
 }

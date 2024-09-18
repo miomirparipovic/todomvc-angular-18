@@ -1,9 +1,11 @@
 <section class="main">
   <ul class="todo-list">
     @for (todo of visableTodosSignal(); track todo.id) {
-      <li>
-        <app-todo-item [todo]="todo" />
-      </li>
+      <app-todo-item
+        [todo]="todo"
+        [isEditing]="editItemId() === todo.id"
+        (editItemId)="handleSetTodoInEditMode($event)"
+      />
     }
   </ul>
 </section>

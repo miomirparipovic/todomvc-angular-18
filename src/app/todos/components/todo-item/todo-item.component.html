@@ -1,9 +1,15 @@
 <!-- eslint-disable @angular-eslint/template/elements-content -->
 <!-- eslint-disable @angular-eslint/template/label-has-associated-control -->
-<li>
+<li [class.editing]="isEditing()">
   <div class="view">
     <input type="checkbox" class="toggle" />
-    <label>{{ todo().text }}</label>
+    <label (dblclick)="onSetTodoInEditMode()">{{ todo().text }}</label>
     <button class="destroy"></button>
   </div>
+
+  @if (isEditing()) {
+    <div class="input-container">
+      <input class="edit" [value]="editingText()" />
+    </div>
+  }
 </li>
