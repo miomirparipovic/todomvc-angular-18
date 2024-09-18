@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, computed, input, output } from '@angular/core';
 import { FilterEnum } from '../../models/filter.enum';
 import { RouterLink } from '@angular/router';
 
@@ -12,7 +12,18 @@ import { RouterLink } from '@angular/router';
 export class TodoFooterComponent {
   filterEnum = FilterEnum;
   currentFilter = input.required<FilterEnum>();
+  activeCount = input.required<number>();
+  areAnyTodos = input.required<boolean>();
   changeFilter = output<FilterEnum>();
+  activeCountMessage = computed((): string => {
+    let word: string = 'item';
+
+    if (this.activeCount() != 1) {
+      word += 's';
+    }
+
+    return word + ' ' + 'left';
+  });
 
   onChangeFilter(event: Event, filter: FilterEnum): void {
     event.preventDefault();

@@ -9,6 +9,5 @@ import { TodoInterface } from '../../models/todo.interface';
   styleUrl: './todo-main.component.css',
 })
 export class TodoMainComponent {
-  // todosSignal = input.required<TodoInterface[]>();
   visableTodosSignal = input.required<TodoInterface[]>();
 }

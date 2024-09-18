@@ -3,6 +3,8 @@
   <app-todo-main [visableTodosSignal]="visibleTodosSignal()" />
   <app-todo-footer
     [currentFilter]="currentFilterSignal()"
+    [activeCount]="activeCount()"
+    [areAnyTodos]="areAnyTodosLeft()"
     (changeFilter)="handleChangeFilter($event)"
   />
 </section>
