@@ -68,4 +68,41 @@ export class TodosService {
     this.todosSignal = updatedTodos;
     // this.changeTodosSignal(updatedTodos);
   }
+
+  removeTodo(removeId: string): void {
+    // console.log('remove todo with id: ', id);
+    // here i use 'update' instead of set
+    this._todosSignal.update((todos) => {
+      return todos.filter(
+        (todo: TodoInterface): boolean => todo.id != removeId,
+      );
+    });
+  }
+
+  toggleTodo(toggleId: string): void {
+    // console.log('toggle todo with id: ', toggleId);
+    this._todosSignal.update((todos: TodoInterface[]) => {
+      return todos.map((todo: TodoInterface) => {
+        if (todo.id == toggleId) {
+          return {
+            ...todo,
+            isCompleted: !todo.isCompleted,
+          };
+        }
+
+        return todo;
+      });
+    });
+  }
+
+  toggleAllTodos(isCompleted: boolean): void {
+    this._todosSignal.update((todos: TodoInterface[]) => {
+      return todos.map((todo: TodoInterface) => {
+        return {
+          ...todo,
+          isCompleted,
+        };
+      });
+    });
+  }
 }

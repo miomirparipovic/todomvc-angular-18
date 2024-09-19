@@ -11,11 +11,12 @@ import {
   WritableSignal,
 } from '@angular/core';
 import { TodoInterface } from '../../models/todo.interface';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-todo-item',
   standalone: true,
-  imports: [],
+  imports: [NgClass],
   templateUrl: './todo-item.component.html',
   styleUrl: './todo-item.component.css',
 })
@@ -24,6 +25,8 @@ export class TodoItemComponent implements OnInit, AfterViewChecked {
   isEditing = input.required<boolean>();
   editItemId = output<string | null>();
   editedText = output<string[]>();
+  removeTodo = output<string>();
+  toggleTodoWithId = output<string>();
   textToEdit = computed(() => {
     return this.todo().text;
   });
@@ -76,5 +79,13 @@ export class TodoItemComponent implements OnInit, AfterViewChecked {
       this.currentText.set(target.value);
       return;
     }
+  }
+
+  onRemoveTodo(): void {
+    this.removeTodo.emit(this.todo().id);
+  }
+
+  onToggleTodo(): void {
+    this.toggleTodoWithId.emit(this.todo().id);
   }
 }

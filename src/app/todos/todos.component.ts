@@ -42,6 +42,13 @@ export class TodosComponent {
   areAnyTodosLeft: Signal<boolean> = computed((): boolean => {
     return this._todosService.todosSignal().length > 0;
   });
+  areAllTodosCompleted: Signal<boolean> = computed((): boolean => {
+    const todos: TodoInterface[] = this._todosService.todosSignal();
+
+    return (
+      todos.length > 0 && todos.every((todo: TodoInterface) => todo.isCompleted)
+    );
+  });
 
   constructor(private _todosService: TodosService) {
     this.currentFilterSignal = this._todosService.filterSignal;
@@ -63,5 +70,17 @@ export class TodosComponent {
     const [editTodoId, editText] = editedTextAndId;
 
     this._todosService.updateEditedTodoText(editTodoId, editText);
+  }
+
+  handleRemoveTodo(id: string): void {
+    this._todosService.removeTodo(id);
+  }
+
+  handleToggleTodo(id: string): void {
+    this._todosService.toggleTodo(id);
+  }
+
+  handleToggleAllTodos(toggleFlag: boolean): void {
+    this._todosService.toggleAllTodos(toggleFlag);
   }
 }

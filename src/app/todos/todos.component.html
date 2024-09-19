@@ -2,7 +2,11 @@
   <app-todo-header (newTodo)="handleNewTodo($event)" />
   <app-todo-main
     [visableTodosSignal]="visibleTodosSignal()"
+    [areAllTodosCompleted]="areAllTodosCompleted()"
     (editedText)="handleEditedTextWithId($event)"
+    (removeTodoId)="handleRemoveTodo($event)"
+    (toggleTodoWithId)="handleToggleTodo($event)"
+    (toggleAllTodos)="handleToggleAllTodos($event)"
   />
   <app-todo-footer
     [currentFilter]="currentFilterSignal()"
