@@ -68,4 +68,8 @@ export class TodosComponent {
   handleRemoveTodo(id: string): void {
     this._todosService.removeTodo(id);
   }
+
+  handleToggleTodo(id: string): void {
+    this._todosService.toggleTodo(id);
+  }
 }

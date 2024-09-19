@@ -4,6 +4,7 @@
     [visableTodosSignal]="visibleTodosSignal()"
     (editedText)="handleEditedTextWithId($event)"
     (removeTodoId)="handleRemoveTodo($event)"
+    (toggleTodoWithId)="handleToggleTodo($event)"
   />
   <app-todo-footer
     [currentFilter]="currentFilterSignal()"

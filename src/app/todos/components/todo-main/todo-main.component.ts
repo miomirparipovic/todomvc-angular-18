@@ -13,6 +13,7 @@ export class TodoMainComponent {
   visableTodosSignal = input.required<TodoInterface[]>();
   editedText = output<string[]>();
   removeTodoId = output<string>();
+  toggleTodoWithId = output<string>();
   editItemId = signal<string | null>(null);
 
   handleSetTodoInEditMode(todoId: string | null) {
@@ -25,5 +26,9 @@ export class TodoMainComponent {
 
   passTodoIdToRemove(id: string): void {
     this.removeTodoId.emit(id);
+  }
+
+  passToggleTodo(id: string): void {
+    this.toggleTodoWithId.emit(id);
   }
 }

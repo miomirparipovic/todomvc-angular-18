@@ -78,4 +78,20 @@ export class TodosService {
       );
     });
   }
+
+  toggleTodo(toggleId: string): void {
+    // console.log('toggle todo with id: ', toggleId);
+    this._todosSignal.update((todos: TodoInterface[]) => {
+      return todos.map((todo: TodoInterface) => {
+        if (todo.id == toggleId) {
+          return {
+            ...todo,
+            isCompleted: !todo.isCompleted,
+          };
+        }
+
+        return todo;
+      });
+    });
+  }
 }
