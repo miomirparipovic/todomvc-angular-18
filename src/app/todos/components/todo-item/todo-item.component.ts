@@ -24,6 +24,7 @@ export class TodoItemComponent implements OnInit, AfterViewChecked {
   isEditing = input.required<boolean>();
   editItemId = output<string | null>();
   editedText = output<string[]>();
+  removeTodo = output<string>();
   textToEdit = computed(() => {
     return this.todo().text;
   });
@@ -76,5 +77,9 @@ export class TodoItemComponent implements OnInit, AfterViewChecked {
       this.currentText.set(target.value);
       return;
     }
+  }
+
+  onRemoveTodo() {
+    this.removeTodo.emit(this.todo().id);
   }
 }

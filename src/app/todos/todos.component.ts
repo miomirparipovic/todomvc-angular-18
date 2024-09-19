@@ -64,4 +64,8 @@ export class TodosComponent {
 
     this._todosService.updateEditedTodoText(editTodoId, editText);
   }
+
+  handleRemoveTodo(id: string): void {
+    this._todosService.removeTodo(id);
+  }
 }

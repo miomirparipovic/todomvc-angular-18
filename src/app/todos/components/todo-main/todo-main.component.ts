@@ -12,6 +12,7 @@ import { TodoItemComponent } from '../todo-item/todo-item.component';
 export class TodoMainComponent {
   visableTodosSignal = input.required<TodoInterface[]>();
   editedText = output<string[]>();
+  removeTodoId = output<string>();
   editItemId = signal<string | null>(null);
 
   handleSetTodoInEditMode(todoId: string | null) {
@@ -20,5 +21,9 @@ export class TodoMainComponent {
 
   passOnEditedText(event: string[]): void {
     this.editedText.emit(event);
+  }
+
+  passTodoIdToRemove(id: string): void {
+    this.removeTodoId.emit(id);
   }
 }

@@ -4,7 +4,7 @@
   <div class="view">
     <input type="checkbox" class="toggle" />
     <label (dblclick)="onSetTodoInEditMode()">{{ todo().text }}</label>
-    <button class="destroy"></button>
+    <button class="destroy" (click)="onRemoveTodo()"></button>
   </div>
 
   @if (isEditing()) {

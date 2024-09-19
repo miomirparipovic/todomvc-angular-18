@@ -68,4 +68,14 @@ export class TodosService {
     this.todosSignal = updatedTodos;
     // this.changeTodosSignal(updatedTodos);
   }
+
+  removeTodo(removeId: string): void {
+    // console.log('remove todo with id: ', id);
+    // here i use 'update' instead of set
+    this._todosSignal.update((todos) => {
+      return todos.filter(
+        (todo: TodoInterface): boolean => todo.id != removeId,
+      );
+    });
+  }
 }
