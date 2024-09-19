@@ -94,4 +94,15 @@ export class TodosService {
       });
     });
   }
+
+  toggleAllTodos(isCompleted: boolean): void {
+    this._todosSignal.update((todos: TodoInterface[]) => {
+      return todos.map((todo: TodoInterface) => {
+        return {
+          ...todo,
+          isCompleted,
+        };
+      });
+    });
+  }
 }

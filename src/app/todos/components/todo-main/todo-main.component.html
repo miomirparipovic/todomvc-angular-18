@@ -1,14 +1,24 @@
-<section class="main">
-  <ul class="todo-list">
-    @for (todo of visableTodosSignal(); track todo.id) {
-      <app-todo-item
-        [todo]="todo"
-        [isEditing]="editItemId() === todo.id"
-        (editItemId)="handleSetTodoInEditMode($event)"
-        (editedText)="passOnEditedText($event)"
-        (removeTodo)="passTodoIdToRemove($event)"
-        (toggleTodoWithId)="passToggleTodo($event)"
-      />
-    }
-  </ul>
-</section>
+@if (visableTodosSignal().length) {
+  <section class="main">
+    <input
+      type="checkbox"
+      id="toggle-all"
+      class="toggle-all"
+      [checked]="areAllTodosCompleted()"
+      (change)="onToggleAllTodos($event)"
+    />
+    <label for="toggle-all">Mark all as completed</label>
+    <ul class="todo-list">
+      @for (todo of visableTodosSignal(); track todo.id) {
+        <app-todo-item
+          [todo]="todo"
+          [isEditing]="editItemId() === todo.id"
+          (editItemId)="handleSetTodoInEditMode($event)"
+          (editedText)="passOnEditedText($event)"
+          (removeTodo)="passTodoIdToRemove($event)"
+          (toggleTodoWithId)="passToggleTodo($event)"
+        />
+      }
+    </ul>
+  </section>
+}
