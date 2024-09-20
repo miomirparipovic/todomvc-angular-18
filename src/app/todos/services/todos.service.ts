@@ -6,8 +6,29 @@ import { FilterEnum } from '../models/filter.enum';
   providedIn: 'root',
 })
 export class TodosService {
+  private localStorageKey = signal<string>('todo-angular').asReadonly();
   private _todosSignal = signal<TodoInterface[]>([]);
   private _filterSignal = signal<FilterEnum>(FilterEnum.all);
+
+  constructor() {
+    this.loadTodosFromLocalStorage();
+  }
+
+  private loadTodosFromLocalStorage(): void {
+    const todos = localStorage.getItem(this.localStorageKey());
+
+    if (todos) {
+      // this.todosSignal.set(JSON.parse(todos));
+      // setter
+      this.todosSignal = JSON.parse(todos);
+    }
+  }
+
+  private saveTodosToLocalStorage(): void {
+    const currentTodos = this._todosSignal();
+
+    localStorage.setItem(this.localStorageKey(), JSON.stringify(currentTodos));
+  }
 
   addTodo(text: string): void {
     const newTodo: TodoInterface = {
@@ -17,6 +38,7 @@ export class TodosService {
     };
 
     this._todosSignal.update((todos) => [...todos, newTodo]);
+    this.saveTodosToLocalStorage();
   }
 
   // use one of these
@@ -30,6 +52,7 @@ export class TodosService {
 
   set todosSignal(newTodos: TodoInterface[]) {
     this._todosSignal.set(newTodos);
+    this.saveTodosToLocalStorage();
   }
 
   // changeTodosSignal(newTodos: TodoInterface[]): void {
@@ -78,6 +101,8 @@ export class TodosService {
         (todo: TodoInterface): boolean => todo.id != removeId,
       );
     });
+
+    this.saveTodosToLocalStorage();
   }
 
   toggleTodo(toggleId: string): void {
@@ -94,6 +119,8 @@ export class TodosService {
         return todo;
       });
     });
+
+    this.saveTodosToLocalStorage();
   }
 
   toggleAllTodos(isCompleted: boolean): void {
@@ -105,11 +132,15 @@ export class TodosService {
         };
       });
     });
+
+    this.saveTodosToLocalStorage();
   }
 
   clearCompleted(): void {
     this._todosSignal.update((todos: TodoInterface[]) => {
       return todos.filter((todo: TodoInterface): boolean => !todo.isCompleted);
     });
+
+    this.saveTodosToLocalStorage();
   }
 }

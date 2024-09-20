@@ -17,7 +17,7 @@ export class TodosComponent {
   currentFilterSignal: Signal<FilterEnum>;
   visibleTodosSignal: Signal<TodoInterface[]> = computed(
     (): TodoInterface[] => {
-      const todos = this._todosService.todosSignal();
+      const todos: TodoInterface[] = this._todosService.todosSignal();
       const currentFilter = this._todosService.filterSignal();
 
       if (currentFilter == FilterEnum.active) {
