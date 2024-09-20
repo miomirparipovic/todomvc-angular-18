@@ -21,7 +21,7 @@ export class TodosService {
 
   // use one of these
   get todosSignal(): Signal<TodoInterface[]> {
-    return this._todosSignal;
+    return this._todosSignal.asReadonly();
   }
 
   // getTodosSignal(): Signal<TodoInterface[]> {
@@ -38,7 +38,7 @@ export class TodosService {
 
   // use one of these
   get filterSignal(): Signal<FilterEnum> {
-    return this._filterSignal;
+    return this._filterSignal.asReadonly();
   }
 
   // getFilterSignal(): Signal<FilterEnum> {
@@ -65,6 +65,7 @@ export class TodosService {
       return todo;
     });
 
+    // setter
     this.todosSignal = updatedTodos;
     // this.changeTodosSignal(updatedTodos);
   }
@@ -103,6 +104,12 @@ export class TodosService {
           isCompleted,
         };
       });
+    });
+  }
+
+  clearCompleted(): void {
+    this._todosSignal.update((todos: TodoInterface[]) => {
+      return todos.filter((todo: TodoInterface): boolean => !todo.isCompleted);
     });
   }
 }
