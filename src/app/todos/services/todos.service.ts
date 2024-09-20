@@ -6,8 +6,29 @@ import { FilterEnum } from '../models/filter.enum';
   providedIn: 'root',
 })
 export class TodosService {
+  private localStorageKey = signal<string>('todo-angular').asReadonly();
   private _todosSignal = signal<TodoInterface[]>([]);
   private _filterSignal = signal<FilterEnum>(FilterEnum.all);
+
+  constructor() {
+    this.loadTodosFromLocalStorage();
+  }
+
+  private loadTodosFromLocalStorage(): void {
+    const todos = localStorage.getItem(this.localStorageKey());
+
+    if (todos) {
+      // this.todosSignal.set(JSON.parse(todos));
+      // setter
+      this.todosSignal = JSON.parse(todos);
+    }
+  }
+
+  private saveTodosToLocalStorage(): void {
+    const currentTodos = this._todosSignal();
+
+    localStorage.setItem(this.localStorageKey(), JSON.stringify(currentTodos));
+  }
 
   addTodo(text: string): void {
     const newTodo: TodoInterface = {
@@ -17,11 +38,12 @@ export class TodosService {
     };
 
     this._todosSignal.update((todos) => [...todos, newTodo]);
+    this.saveTodosToLocalStorage();
   }
 
   // use one of these
   get todosSignal(): Signal<TodoInterface[]> {
-    return this._todosSignal;
+    return this._todosSignal.asReadonly();
   }
 
   // getTodosSignal(): Signal<TodoInterface[]> {
@@ -30,6 +52,7 @@ export class TodosService {
 
   set todosSignal(newTodos: TodoInterface[]) {
     this._todosSignal.set(newTodos);
+    this.saveTodosToLocalStorage();
   }
 
   // changeTodosSignal(newTodos: TodoInterface[]): void {
@@ -38,7 +61,7 @@ export class TodosService {
 
   // use one of these
   get filterSignal(): Signal<FilterEnum> {
-    return this._filterSignal;
+    return this._filterSignal.asReadonly();
   }
 
   // getFilterSignal(): Signal<FilterEnum> {
@@ -65,6 +88,7 @@ export class TodosService {
       return todo;
     });
 
+    // setter
     this.todosSignal = updatedTodos;
     // this.changeTodosSignal(updatedTodos);
   }
@@ -77,6 +101,8 @@ export class TodosService {
         (todo: TodoInterface): boolean => todo.id != removeId,
       );
     });
+
+    this.saveTodosToLocalStorage();
   }
 
   toggleTodo(toggleId: string): void {
@@ -93,6 +119,8 @@ export class TodosService {
         return todo;
       });
     });
+
+    this.saveTodosToLocalStorage();
   }
 
   toggleAllTodos(isCompleted: boolean): void {
@@ -104,5 +132,15 @@ export class TodosService {
         };
       });
     });
+
+    this.saveTodosToLocalStorage();
+  }
+
+  clearCompleted(): void {
+    this._todosSignal.update((todos: TodoInterface[]) => {
+      return todos.filter((todo: TodoInterface): boolean => !todo.isCompleted);
+    });
+
+    this.saveTodosToLocalStorage();
   }
 }

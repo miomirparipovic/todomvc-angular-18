@@ -17,7 +17,7 @@ export class TodosComponent {
   currentFilterSignal: Signal<FilterEnum>;
   visibleTodosSignal: Signal<TodoInterface[]> = computed(
     (): TodoInterface[] => {
-      const todos = this._todosService.todosSignal();
+      const todos: TodoInterface[] = this._todosService.todosSignal();
       const currentFilter = this._todosService.filterSignal();
 
       if (currentFilter == FilterEnum.active) {
@@ -48,6 +48,11 @@ export class TodosComponent {
     return (
       todos.length > 0 && todos.every((todo: TodoInterface) => todo.isCompleted)
     );
+  });
+  numberOfCompletedTodos: Signal<number> = computed(() => {
+    const todos = this._todosService.todosSignal();
+
+    return todos.filter((todo: TodoInterface) => todo.isCompleted).length;
   });
 
   constructor(private _todosService: TodosService) {
@@ -82,5 +87,9 @@ export class TodosComponent {
 
   handleToggleAllTodos(toggleFlag: boolean): void {
     this._todosService.toggleAllTodos(toggleFlag);
+  }
+
+  handleClearCompoleted(): void {
+    this._todosService.clearCompleted();
   }
 }

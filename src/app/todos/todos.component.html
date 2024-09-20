@@ -12,6 +12,8 @@
     [currentFilter]="currentFilterSignal()"
     [activeCount]="activeCount()"
     [areAnyTodos]="areAnyTodosLeft()"
+    [numberOfCompletedTodos]="numberOfCompletedTodos()"
     (changeFilter)="handleChangeFilter($event)"
+    (clearCompleted)="handleClearCompoleted()"
   />
 </section>

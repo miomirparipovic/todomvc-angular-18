@@ -14,6 +14,8 @@ export class TodoFooterComponent {
   currentFilter = input.required<FilterEnum>();
   activeCount = input.required<number>();
   areAnyTodos = input.required<boolean>();
+  numberOfCompletedTodos = input.required<number>();
+  clearCompleted = output<void>();
   changeFilter = output<FilterEnum>();
   activeCountMessage = computed((): string => {
     let word: string = 'item';
@@ -28,5 +30,9 @@ export class TodoFooterComponent {
   onChangeFilter(event: Event, filter: FilterEnum): void {
     event.preventDefault();
     this.changeFilter.emit(filter);
+  }
+
+  onClearCompleted(): void {
+    this.clearCompleted.emit();
   }
 }
